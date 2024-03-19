@@ -8,8 +8,7 @@ aves_list =[]
 #recorre la base de datos para obtener sólo la información necesaria
 for ave in response:
     aves_list.append((ave["images"]["main"], ave["name"]["spanish"], ave["name"]["english"]))
-##style="width: 18rem;
-#tenplate de card para html
+#template de card para html
 template_card = """<div class="card" style="width: 18rem"> 
                 <img src="$img_url" class="card-img-top" alt="...">
                 <div class="card-body">
@@ -20,10 +19,11 @@ template_card = """<div class="card" style="width: 18rem">
     """
 
 card_template = Template (template_card)
+# carga la información de la lista para convertirla a código html
 texto_img = ''
 for img_url, nombre_esp, nombre_eng in aves_list:
     texto_img += card_template.substitute(img_url=img_url, nombre_esp=nombre_esp, nombre_eng=nombre_eng) + '\n'
-
+#crea el template para el html
 html_template = Template('''<!doctype html>
 <html lang="es">
   <head>
@@ -57,9 +57,9 @@ html_template = Template('''<!doctype html>
   </body>
 </html>
 ''')
-
+# Generación del html completo
 html = html_template.substitute(body = texto_img)
-print (html)
+# Crea el archivo de nombre catalogo.html donde escribe el html guardado anteriormente
 archivo =  open('catalogo.html', 'w+', encoding='utf-8')
 archivo.write(html)
 archivo.close()
